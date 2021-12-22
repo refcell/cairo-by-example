@@ -1,6 +1,6 @@
-# cairo-by-example [![Tests](https://github.com/a5f9t4/cairo-by-example/actions/workflows/tests.yml/badge.svg)](https://github.com/a5f9t4/cairo-by-example/actions/workflows/tests.yml) ![GitHub](https://img.shields.io/github/license/a5f9t4/cairo-by-example) ![GitHub package.json version](https://img.shields.io/github/package-json/v/a5f9t4/cairo-by-example)
+# cairo-by-example • [![Tests](https://github.com/a5f9t4/cairo-by-example/actions/workflows/tests.yml/badge.svg)](https://github.com/a5f9t4/cairo-by-example/actions/workflows/tests.yml) ![GitHub](https://img.shields.io/github/license/a5f9t4/cairo-by-example) ![GitHub package.json version](https://img.shields.io/github/package-json/v/a5f9t4/cairo-by-example)
 
-[Cairo By Example](https://cairo-by-example.xyz)
+**Cairo By Example** deployed to [https://cairo-by-example.xyz](https://cairo-by-example.xyz)
 
 ### Installation
 
