@@ -1,5 +1,11 @@
 {
-  "private": true,
+  "name": "cairo-by-example",
+  "version": "0.1.0",
+  "homepage": "https://cairo-by-example.xyz",
+  "private": false,
+  "authors": [
+    "Alucard <github.com/a5f9t4>"
+  ],
   "scripts": {
     "dev": "next",
     "build": "next build",
