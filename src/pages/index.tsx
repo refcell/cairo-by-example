@@ -1,15 +1,17 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
-import { CTASection, WelcomeText } from "components/layout";
+import { WelcomeText } from "components/layout";
+import { Basics, DeFi, Exploits } from "components/sections";
 
 const Home = () => {
   return (
     <Box mb={8} w="full" h="full" d="flex" flexDirection="column">
       <WelcomeText />
       <Box flex="1 1 auto">
-        <Text>Insert components here</Text>
+        <Basics />
+        <DeFi />
+        <Exploits />
       </Box>
-      <CTASection />
     </Box>
   );
 };

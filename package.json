@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@argent/get-starknet": "^0.1.4",
+    "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/react": "^1.7.3",
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.7.1",
