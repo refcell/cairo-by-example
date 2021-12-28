@@ -38,7 +38,7 @@ const Footer = () => {
         {" • "}
       </DOT>
       <Text my={1} mx={2} size={textSize}>
-        Send ETH ❤️ to{" "}
+        Send ❤️ to{" "}
         <Link
           textDecoration="none !important"
           outline="none !important"
