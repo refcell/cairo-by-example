@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://cairo-by-example.xyz
+
+# Sitemaps
+Sitemap: https://cairo-by-example.xyz/sitemap.xml
