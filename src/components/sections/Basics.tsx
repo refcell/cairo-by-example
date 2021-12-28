@@ -8,14 +8,21 @@ import {
   useBreakpointValue,
   // useColorMode,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { MdTripOrigin, MdRadioButtonChecked } from "react-icons/md";
 
 const Basics = () => {
-  // const { colorMode } = useColorMode();
+  const [visitedHelloWorld, setVisitedHelloWorld] = useState(false);
   const textSize = useBreakpointValue({
     base: "xs",
     sm: "md",
   });
+
+  useEffect(() => {
+    setVisitedHelloWorld(
+      localStorage.getItem("pages/basics/hello-world") === "visited"
+    );
+  }, []);
 
   return (
     <Box my={4}>
@@ -31,11 +38,13 @@ const Basics = () => {
           href="/basics/hello-world"
         >
           <ListItem>
-            <ListIcon as={MdTripOrigin} />
+            <ListIcon
+              as={visitedHelloWorld ? MdRadioButtonChecked : MdTripOrigin}
+            />
             Hello World!
           </ListItem>
         </Link>
-        <Link
+        {/* <Link
           outline="none !important"
           boxShadow="none !important"
           mt={2}
@@ -46,7 +55,7 @@ const Basics = () => {
             <ListIcon as={MdRadioButtonChecked} />
             Hello World!
           </ListItem>
-        </Link>
+        </Link> */}
       </List>
     </Box>
   );
