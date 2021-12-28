@@ -8,7 +8,7 @@ import {
   useBreakpointValue,
   // useColorMode,
 } from "@chakra-ui/react";
-import { MdTripOrigin } from "react-icons/md";
+import { MdTripOrigin, MdRadioButtonChecked } from "react-icons/md";
 
 const Basics = () => {
   // const { colorMode } = useColorMode();
@@ -24,7 +24,6 @@ const Basics = () => {
       </Heading>
       <List mt={3} mb={5} spacing={4}>
         <Link
-          // textDecoration="none !important"
           outline="none !important"
           boxShadow="none !important"
           mt={2}
@@ -37,7 +36,6 @@ const Basics = () => {
           </ListItem>
         </Link>
         <Link
-          // textDecoration="none !important"
           outline="none !important"
           boxShadow="none !important"
           mt={2}
@@ -45,7 +43,7 @@ const Basics = () => {
           href="/basics/hello-world"
         >
           <ListItem>
-            <ListIcon as={MdTripOrigin} />
+            <ListIcon as={MdRadioButtonChecked} />
             Hello World!
           </ListItem>
         </Link>
