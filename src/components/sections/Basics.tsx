@@ -26,7 +26,7 @@ const Basics = () => {
 
   return (
     <Box my={4}>
-      <Heading as="h2" fontSize="3xl">
+      <Heading as="h3" fontSize="2xl">
         Basics
       </Heading>
       <List mt={3} mb={5} spacing={4}>

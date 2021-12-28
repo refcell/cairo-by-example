@@ -15,7 +15,7 @@ const DeFi = () => {
 
   return (
     <Box my={4}>
-      <Heading as="h2" fontSize="3xl">
+      <Heading as="h3" fontSize="2xl">
         DeFi
       </Heading>
       <Link size={textSize} href="/">
