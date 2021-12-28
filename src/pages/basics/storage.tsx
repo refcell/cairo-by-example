@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 
-const HelloWorld = () => {
+const Storage = () => {
   const { colorMode } = useColorMode();
   const textSize = useBreakpointValue({
     base: "xs",
@@ -32,16 +32,49 @@ const HelloWorld = () => {
       >
         <Text fontSize={textSize}>
           {`%lang starknet
-          %builtins range_check
+          %builtins pedersen range_check
 
-          # Alphabet substituation cipher for each letter.
-          # a = 01, b = 02, etc.
-          const hello = 10000805121215  # 08, 05, 12, 12, 15.
-          const world = 10002315181204  # 23, 15, 18, 12, 04.
+          from starkware.cairo.common.cairo_builtins import HashBuiltin
 
+          @storage_var
+          func count() -> (res : felt):
+          end
+
+          # Function to get the current balance.
           @view
-          func hello_world() -> (word1: felt, word2: felt):
-            \treturn (hello, world)
+          func get{
+                  \t\tsyscall_ptr : felt*,
+                  \t\tpedersen_ptr : HashBuiltin*,
+                  \t\trange_check_ptr
+              \t}() -> (
+                  \t\tvalue : felt
+              \t):
+              \tlet (value) = count.read()
+              \treturn (value)
+          end
+
+          # Function to increase the count by 1.
+          @external
+          func increase{
+                  \t\tsyscall_ptr : felt*,
+                  \t\tpedersen_ptr : HashBuiltin*,
+                  \t\trange_check_ptr
+              \t}():
+              \tlet (res) = count.read()
+              \tcount.write(res + 1)
+              \treturn ()
+          end
+
+          # Function to decrease the count by 1.
+          @external
+          func decrease{
+                  \t\tsyscall_ptr : felt*,
+                  \t\tpedersen_ptr : HashBuiltin*,
+                  \t\trange_check_ptr
+              \t}():
+              \tlet (res) = count.read()
+              \tcount.write(res - 1)
+              \treturn ()
           end`
             .split("\n")
             .map((item, index) => {
@@ -75,28 +108,20 @@ const HelloWorld = () => {
           interpreted as a Starknet contract.
         </Text>
         <Text my={2} fontSize={textSize}>
-          Next, the directive <Code>%builtins range_check</Code> instructs the
-          compiler that our program will use the &quot;range_check&quot;
-          builtin. This builtin ensures numbers stay within the acceptable
-          range.
+          Next, the directive <Code>%builtins pedersen range_check</Code>
+          instructs the compiler that our program will use the
+          &quot;range_check&quot; builtin. As we saw in Hello World, this
+          builtin ensures numbers stay within the acceptable range. Besides the
+          range_check builtin, we added the &quot;pedersen&quot; builtin, which
+          allows us to use the Pedersen Hash Function - required in many native
+          operations (as we will see soon).
         </Text>
         <Text my={2} fontSize={textSize}>
-          Lines 4 and 5 are simply comments, denoted by the <Code>#</Code>{" "}
-          prefix.
-        </Text>
-        <Text my={2} fontSize={textSize}>
-          On lines 6 and 7, we declare &quot;Hello&quot; and &quot;World&quot;
-          as constants using an alphabet substitution.
-        </Text>
-        <Text my={2} fontSize={textSize}>
-          Lastly, from lines 9-12, we expose a function called{" "}
-          <Code>hello_world</Code>. In order to allow external access, we have
-          to add the <Code>@view</Code> decorator on line 9. We simply return
-          our two constants, both with <Code>felt</Code> type.
+          TODO: implicit parameters
         </Text>
       </Box>
     </>
   );
 };
 
-export default HelloWorld;
+export default Storage;

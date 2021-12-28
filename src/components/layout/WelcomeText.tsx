@@ -1,4 +1,4 @@
-import { Text, Heading, Box } from "@chakra-ui/react";
+import { Heading, Box } from "@chakra-ui/react";
 
 const WelcomeText = () => {
   return (
@@ -7,23 +7,41 @@ const WelcomeText = () => {
         Hello, anon
       </Heading>
 
-      <Box mt={2} display="flex" flexDirection="row">
+      <Box mt={2} wordWrap="break">
         These examples are
-        <Text mx={1} fontWeight="bold">
+        <span
+          style={{
+            marginLeft: "0.25em",
+            marginRight: "0.25em",
+            fontWeight: "bold",
+          }}
+        >
           Verbosely
-        </Text>
+        </span>
         Documented,
-        <Text mx={1} fontWeight="bold">
+        <span
+          style={{
+            marginLeft: "0.25em",
+            marginRight: "0.25em",
+            fontWeight: "bold",
+          }}
+        >
           Minimal
-        </Text>
+        </span>
         Starknet Contracts.
       </Box>
-      <Box mt={2} display="flex" flexDirection="row">
-        ⚠️ Currently
-        <Text mx={1} fontWeight="bold">
+      <Box mt={2} wordWrap="break">
+        ⚠️
+        <span
+          style={{
+            marginLeft: "0.25em",
+            marginRight: "0.25em",
+            fontWeight: "bold",
+          }}
+        >
           NOT
-        </Text>
-        recommended for use in production ⚠️
+        </span>
+        recommended for production ⚠️
       </Box>
     </>
   );

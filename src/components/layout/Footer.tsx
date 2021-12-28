@@ -1,13 +1,43 @@
-import { Flex, Link, Text, Image, Code } from "@chakra-ui/react";
+import {
+  Flex,
+  Link,
+  Text,
+  Image,
+  Code,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+import styled from "styled-components";
 
 const repoLink = "https://github.com/a5f9t4/cairo-by-example";
 
+const DOT = styled(Text)`
+  @media (max-width: 350px) {
+    display: none;
+  }
+`;
+
 const Footer = () => {
+  const textSize = useBreakpointValue({
+    base: "xs",
+    sm: "md",
+  });
+
   return (
-    <Flex as="footer" width="full" pb={8} align="center">
-      <Text>{new Date().getFullYear()}</Text>
-      <Text mx={2}>{" • "}</Text>
-      <Text>
+    <Flex
+      as="footer"
+      width="full"
+      pb={8}
+      align="center"
+      justifyContent="center"
+      flexWrap="wrap"
+    >
+      <Text my={1} size={textSize}>
+        {new Date().getFullYear()}
+      </Text>
+      <DOT my={1} ml={2} size={textSize}>
+        {" • "}
+      </DOT>
+      <Text my={1} mx={2} size={textSize}>
         Send ETH ❤️ to{" "}
         <Link
           textDecoration="none !important"
@@ -19,8 +49,10 @@ const Footer = () => {
           velleity.eth
         </Link>{" "}
       </Text>
-      <Text mx={2}>{" • "}</Text>
-      <Text>
+      <DOT my={1} mr={2} size={textSize}>
+        {" • "}
+      </DOT>
+      <Text my={1} size={textSize}>
         <Link
           textDecoration="none !important"
           outline="none !important"
@@ -31,7 +63,7 @@ const Footer = () => {
           <Code>github.com/a5f9t4/cairo-by-example</Code>
         </Link>
       </Text>
-      <Link href={repoLink} isExternal ml={2} my="auto">
+      <Link my={1} href={repoLink} isExternal ml={2}>
         <Image
           // align="center"
           src="https://img.shields.io/github/stars/a5f9t4/cairo-by-example?style=social"
