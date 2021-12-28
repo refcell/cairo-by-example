@@ -16,7 +16,7 @@ const Storage = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem("pages/basics/hello-world", "visited");
+    localStorage.setItem("pages/basics/storage", "visited");
   }, []);
 
   return (
