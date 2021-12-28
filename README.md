@@ -1,4 +1,4 @@
-# cairo-by-example • [![Tests](https://github.com/a5f9t4/cairo-by-example/actions/workflows/tests.yml/badge.svg)](https://github.com/a5f9t4/cairo-by-example/actions/workflows/tests.yml) ![GitHub](https://img.shields.io/github/license/a5f9t4/cairo-by-example) ![GitHub package.json version](https://img.shields.io/github/package-json/v/a5f9t4/cairo-by-example) ![Vercel Deployment](https://img.shields.io/github/deployments/a5f9t4/cairo-by-example/production?label=vercel)
+# cairo-by-example • [![tests](https://github.com/a5f9t4/cairo-by-example/actions/workflows/tests.yml/badge.svg)](https://github.com/a5f9t4/cairo-by-example/actions/workflows/tests.yml) [![lints](https://github.com/a5f9t4/cairo-by-example/actions/workflows/lints.yml/badge.svg)](https://github.com/a5f9t4/cairo-by-example/actions/workflows/lints.yml) ![GitHub](https://img.shields.io/github/license/a5f9t4/cairo-by-example) ![GitHub package.json version](https://img.shields.io/github/package-json/v/a5f9t4/cairo-by-example) ![Vercel Deployment](https://img.shields.io/github/deployments/a5f9t4/cairo-by-example/production?label=vercel)
 
 **Verbosely** Documented, **Minimal** Starknet Contract Examples.
 
