@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- 14
+cache: yarn
+before_script:
+- yarn
+script:
+- yarn lint:check
+- yarn build
+deploy:
+  provider: heroku
+  repo: a5f9t4/cairo-by-example
+  app:
+    develop: cairo-by-example-staging
+    master: cairo-by-example-prod
+  skip_cleanup: 'true'
