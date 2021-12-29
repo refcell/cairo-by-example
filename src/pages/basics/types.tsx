@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 
-const Storage = () => {
+const Types = () => {
   const { colorMode } = useColorMode();
   const textSize = useBreakpointValue({
     base: "xs",
@@ -16,13 +16,13 @@ const Storage = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem("pages/basics/storage", "visited");
+    localStorage.setItem("pages/basics/types", "visited");
   }, []);
 
   return (
     <>
       <Heading as="h3" fontSize="2xl">
-        Storage
+        Data Types
       </Heading>
       <Box
         backgroundColor={colorMode === "light" ? "gray.300" : "gray.600"}
@@ -34,47 +34,28 @@ const Storage = () => {
           {`%lang starknet
           %builtins pedersen range_check
 
-          from starkware.cairo.common.cairo_builtins import HashBuiltin
-
-          @storage_var
-          func count() -> (res : felt):
-          end
-
-          # Function to get the current balance.
           @view
-          func get{
-                  \t\tsyscall_ptr : felt*,
-                  \t\tpedersen_ptr : HashBuiltin*,
-                  \t\trange_check_ptr
-              \t}() -> (
-                  \t\tvalue : felt
+          func types(
+                  \t\tuser_number: felt
+              \t) -> (
+                  \t\tuser_number_echoed: felt,
+                  \t\tshort_string: felt,
+                  \t\tmangled_string: felt,
+                  \t\thello_string: felt,
               \t):
-              \tlet (value) = count.read()
-              \treturn (value)
-          end
+              \t# Short strings are ASCII encoded humbers.
+              \t# They are identified by single quotation marks.
+              \t# They are actually just numbers (felts), not true strings.
+              \t# 'ab' = a:61 b:62 = 0x6162 = 24930
+              \tlet short_string = 'ab'
+              \t# Adding to a string does not make sense.
+              \t# 24930 + 1 = 24931 = 0x6163 = a:61 c:63 = 'ac'
+              \tlet mangled_string = short_string + 1
 
-          # Function to increase the count by 1.
-          @external
-          func increase{
-                  \t\tsyscall_ptr : felt*,
-                  \t\tpedersen_ptr : HashBuiltin*,
-                  \t\trange_check_ptr
-              \t}():
-              \tlet (res) = count.read()
-              \tcount.write(res + 1)
-              \treturn ()
-          end
-
-          # Function to decrease the count by 1.
-          @external
-          func decrease{
-                  \t\tsyscall_ptr : felt*,
-                  \t\tpedersen_ptr : HashBuiltin*,
-                  \t\trange_check_ptr
-              \t}():
-              \tlet (res) = count.read()
-              \tcount.write(res - 1)
-              \treturn ()
+              \t# h 68 e 65 l 6c l 6c o 6f
+              \t# 0x68656c6c6f = 448378203247
+              \tlet hello_string = 'hello'
+              \treturn (user_number, short_string, mangled_string, hello_string)
           end`
             .split("\n")
             .map((item, index) => {
@@ -146,4 +127,4 @@ const Storage = () => {
   );
 };
 
-export default Storage;
+export default Types;
