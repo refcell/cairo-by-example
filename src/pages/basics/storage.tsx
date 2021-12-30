@@ -22,7 +22,7 @@ const Storage = () => {
   return (
     <>
       <Heading as="h3" fontSize="2xl">
-        Hello World!
+        Storage
       </Heading>
       <Box
         backgroundColor={colorMode === "light" ? "gray.300" : "gray.600"}
@@ -37,27 +37,27 @@ const Storage = () => {
           from starkware.cairo.common.cairo_builtins import HashBuiltin
 
           @storage_var
-          func count() -> (res : felt):
+          func count() -> (res: felt):
           end
 
           # Function to get the current balance.
           @view
           func get{
-                  \t\tsyscall_ptr : felt*,
-                  \t\tpedersen_ptr : HashBuiltin*,
+                  \t\tsyscall_ptr: felt*,
+                  \t\tpedersen_ptr: HashBuiltin*,
                   \t\trange_check_ptr
               \t}() -> (
-                  \t\tvalue : felt
+                  \t\tvalue: felt
               \t):
               \tlet (value) = count.read()
               \treturn (value)
           end
 
-          # Function to increase the count by 1.
+          # Function to increment the count by 1.
           @external
-          func increase{
-                  \t\tsyscall_ptr : felt*,
-                  \t\tpedersen_ptr : HashBuiltin*,
+          func increment{
+                  \t\tsyscall_ptr: felt*,
+                  \t\tpedersen_ptr: HashBuiltin*,
                   \t\trange_check_ptr
               \t}():
               \tlet (res) = count.read()
@@ -65,11 +65,11 @@ const Storage = () => {
               \treturn ()
           end
 
-          # Function to decrease the count by 1.
+          # Function to decrement the count by 1.
           @external
-          func decrease{
-                  \t\tsyscall_ptr : felt*,
-                  \t\tpedersen_ptr : HashBuiltin*,
+          func decrement{
+                  \t\tsyscall_ptr: felt*,
+                  \t\tpedersen_ptr: HashBuiltin*,
                   \t\trange_check_ptr
               \t}():
               \tlet (res) = count.read()
@@ -108,16 +108,70 @@ const Storage = () => {
           interpreted as a Starknet contract.
         </Text>
         <Text my={2} fontSize={textSize}>
-          Next, the directive <Code>%builtins pedersen range_check</Code>
+          Next, the directive <Code>%builtins pedersen range_check</Code>{" "}
           instructs the compiler that our program will use the
           &quot;range_check&quot; builtin. As we saw in Hello World, this
-          builtin ensures numbers stay within the acceptable range. Besides the
-          range_check builtin, we added the &quot;pedersen&quot; builtin, which
-          allows us to use the Pedersen Hash Function - required in many native
-          operations (as we will see soon).
+          builtin ensures numbers stay within the acceptable range. Alongside,
+          the &quot;pedersen&quot; builtin allows us to use the Pedersen Hash
+          Function - required in many native operations (as we will see soon).
         </Text>
         <Text my={2} fontSize={textSize}>
-          TODO: implicit parameters
+          On line 4, we import the <Code>HashBuiltin</Code> type, required when
+          passing in the <Code>pedersen_ptr</Code> into functions.
+        </Text>
+        <Text my={2} fontSize={textSize}>
+          Since Cairo programs are stateless, Starknet exposes a canonical
+          method of creating a storage variable as written on lines 6-8. Here we
+          are defining a variable called <Code>count</Code> that stores a{" "}
+          <Code>felt</Code>.
+        </Text>
+        <Text my={2} fontSize={textSize}>
+          From lines 10-21, we define a simple function to get the value of our
+          counter storage variable. Before we even start to implement the
+          function, we place a decorator (the <Code>@view</Code> bit) above the
+          definition to instruct Cairo that our function is externally visible
+          and read-only on Starknet. <i>By default</i> functions without a
+          decorator are only visible from inside the contract (analagous to{" "}
+          <Code>private</Code> or <Code>internal</Code> in Solidity). To get the
+          value of the count variable, we use{" "}
+          <Code>let (value) = count.read()</Code>. We then return the value. If
+          our value had a different name (ex: diff_name) than the return
+          variable, we would have to specify this by changing line 20 to
+          <Code>return (value=diff_name)</Code>.
+        </Text>
+        <Text my={2} fontSize={textSize}>
+          Note: The three implicit arguments or parameters in all the functions
+          (ex: line 13-15) are necessary to read/write to our storage variable.
+          This is because the storage operations need these parameters to
+          compute the memory address of the storage variable. Aside, the{" "}
+          <Code>syscall_ptr</Code> implicit arg is unique to Starknet, and not
+          available in vanilla cairo. It is required to perform system calls for
+          accessing storage (for interacting with the storage variable).
+        </Text>
+        <Text my={2} fontSize={textSize}>
+          Another Note: we don&apos;t need to explicitly type the{" "}
+          <Code>range_check_ptr</Code> implicit parameter since untyped
+          variables are assigned the default &quot;field element&quot; type (ie.{" "}
+          <Code>felt</Code>).
+        </Text>
+        <Text my={2} fontSize={textSize}>
+          The next two functions (increment and decrement) are very similar,
+          both being marked <Code>@external</Code>. This decorator exposes the
+          function externally to Starknet and allows it to modify contract
+          state(whereas a <Code>@view</Code> function can only read from state).
+        </Text>
+        <Text my={2} fontSize={textSize}>
+          Note: A function without either of these decorators is only accesible
+          inside the contract.
+        </Text>
+        <Text my={2} fontSize={textSize}>
+          Another important note is both the increment and decrement functions
+          differ from the <Code>get</Code> function on line 12 in that they
+          don&apos;t have return types. This is annotated on lines 29 and 41
+          where the function definition occurs after the parameter list in the
+          parenthesis. If we wanted to add a return variable, we would change{" "}
+          <Code>{"}"}():</Code> to <Code>{"}"}() -&gt; ():</Code> and add return
+          variables inside the second set of parenthesis.
         </Text>
       </Box>
     </>
