@@ -1,3 +1,4 @@
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
   Box,
   Text,
@@ -5,6 +6,7 @@ import {
   Heading,
   useBreakpointValue,
   useColorMode,
+  Link,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 
@@ -21,11 +23,17 @@ const Types = () => {
 
   return (
     <>
+      <Link outline="none !important" boxShadow="none !important" href="/">
+        <Box mb={3} display="flex" flexDirection="row">
+          <ArrowBackIcon my="auto" mr={1} />
+          <Text as="h6">Back</Text>
+        </Box>
+      </Link>
       <Heading as="h3" fontSize="2xl">
         Data Types
       </Heading>
       <Box
-        backgroundColor={colorMode === "light" ? "gray.300" : "gray.600"}
+        backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
         padding={4}
         marginTop={4}
         borderRadius={4}
@@ -74,15 +82,25 @@ const Types = () => {
       </Box>
       <Box my={4}>
         <Text my={2} fontSize={textSize}>
-          Here we define data types in an example <Code>types</Code> function.
-          Concretely, there is only one data type in cairo: <Code>felt</Code> or
-          &quot;field element&quot;.
+          In the example above, data types are defined in the <Code>types</Code>
+          function. Concretely, there is only one data type in cairo - the{" "}
+          <Code>felt</Code> or <Code>field element</Code>.
         </Text>
         <Text my={2} fontSize={textSize}>
-          From the Cairo-lang docs:
+          From the{" "}
+          <Link
+            isExternal
+            textDecoration="underline"
+            outline="none !important"
+            boxShadow="none !important"
+            href="https://www.cairo-lang.org/docs/how_cairo_works/cairo_intro.html"
+          >
+            Cairo docs
+          </Link>
+          :
         </Text>
         <Box
-          backgroundColor={colorMode === "light" ? "gray.300" : "gray.600"}
+          backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
           padding={4}
           marginTop={4}
           borderRadius={4}
@@ -99,21 +117,21 @@ const Types = () => {
           integer.
         </Text>
         <Text my={2} fontSize={textSize}>
-          Since felt is the only data type, representing strings is done using
+          Since felt is the only data type, cairo supports strings by using
           ASCII-encoded numbers. That is, each character is mapped to one byte.
           So, when we write a string literal like <Code>&apos;hello&apos;</Code>{" "}
-          , it is compiled to the felt <Code>448378203247</Code> which is
-          equivalent to <Code>0x68656c6c6f</Code>.
+          , it is parsed as an ascii hex code <Code>0x68656c6c6f</Code>, which
+          cairo compiles into the felt <Code>448378203247</Code>.
         </Text>
         <Text my={2} fontSize={textSize}>
-          Note: String literals can only be 31 ASCII characters long.
+          Note: String literals can be a maximum of 31 ASCII characters long.
         </Text>
         <Text my={2} fontSize={textSize}>
-          On lines 16-17 we show that concatenating to a string literal or short
-          string fails because cairo compiles the strings to felts
+          On lines 15-16 we show that concatenating to a string literal or short
+          string fails because cairo compiles the strings to felts{" "}
           <i>and then</i> performs the arithmetic operation. So instead of
-          having <Code>&apos;ac1&apos;</Code>, line 17 stores{" "}
-          <Code>&apos;ac&apos;</Code> in <Code>mangled_string</Code>.
+          having <Code>&apos;ac1&apos;</Code>, line 16 assigns the value{" "}
+          <Code>&apos;ac&apos;</Code> to <Code>mangled_string</Code>.
         </Text>
       </Box>
     </>

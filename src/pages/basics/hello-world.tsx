@@ -1,3 +1,4 @@
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
   Box,
   Text,
@@ -5,6 +6,7 @@ import {
   Heading,
   useBreakpointValue,
   useColorMode,
+  Link,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 
@@ -21,11 +23,17 @@ const HelloWorld = () => {
 
   return (
     <>
+      <Link outline="none !important" boxShadow="none !important" href="/">
+        <Box mb={3} display="flex" flexDirection="row">
+          <ArrowBackIcon my="auto" mr={1} />
+          <Text as="h6">Back</Text>
+        </Box>
+      </Link>
       <Heading as="h3" fontSize="2xl">
         Hello World!
       </Heading>
       <Box
-        backgroundColor={colorMode === "light" ? "gray.300" : "gray.600"}
+        backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
         padding={4}
         marginTop={4}
         borderRadius={4}

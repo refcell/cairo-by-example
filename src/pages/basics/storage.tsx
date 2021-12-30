@@ -1,3 +1,4 @@
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
   Box,
   Text,
@@ -5,6 +6,7 @@ import {
   Heading,
   useBreakpointValue,
   useColorMode,
+  Link,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 
@@ -21,11 +23,17 @@ const Storage = () => {
 
   return (
     <>
+      <Link outline="none !important" boxShadow="none !important" href="/">
+        <Box mb={3} display="flex" flexDirection="row">
+          <ArrowBackIcon my="auto" mr={1} />
+          <Text as="h6">Back</Text>
+        </Box>
+      </Link>
       <Heading as="h3" fontSize="2xl">
         Storage
       </Heading>
       <Box
-        backgroundColor={colorMode === "light" ? "gray.300" : "gray.600"}
+        backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
         padding={4}
         marginTop={4}
         borderRadius={4}
@@ -117,7 +125,7 @@ const Storage = () => {
         </Text>
         <Text my={2} fontSize={textSize}>
           On line 4, we import the <Code>HashBuiltin</Code> type, required when
-          passing in the <Code>pedersen_ptr</Code> into functions.
+          passing <Code>pedersen_ptr</Code> as a function argument.
         </Text>
         <Text my={2} fontSize={textSize}>
           Since Cairo programs are stateless, Starknet exposes a canonical
@@ -130,13 +138,16 @@ const Storage = () => {
           counter storage variable. Before we even start to implement the
           function, we place a decorator (the <Code>@view</Code> bit) above the
           definition to instruct Cairo that our function is externally visible
-          and read-only on Starknet. <i>By default</i> functions without a
+          and read-only on Starknet. <i>By default</i>, functions without a
           decorator are only visible from inside the contract (analagous to{" "}
-          <Code>private</Code> or <Code>internal</Code> in Solidity). To get the
-          value of the count variable, we use{" "}
-          <Code>let (value) = count.read()</Code>. We then return the value. If
-          our value had a different name (ex: diff_name) than the return
-          variable, we would have to specify this by changing line 20 to
+          <Code>private</Code> or <Code>internal</Code> in Solidity).
+        </Text>
+        <Text my={2} fontSize={textSize}>
+          Inside the function, we fetch the value of the count variable by using{" "}
+          <Code>let (value) = count.read()</Code>. Then, on line 20, we return
+          the value. If our value had a different name (ex: diff_name) than the
+          return variable, we would have to explicity asign the value to the
+          return variable by changing line 20 to{" "}
           <Code>return (value=diff_name)</Code>.
         </Text>
         <Text my={2} fontSize={textSize}>
@@ -151,8 +162,8 @@ const Storage = () => {
         <Text my={2} fontSize={textSize}>
           Another Note: we don&apos;t need to explicitly type the{" "}
           <Code>range_check_ptr</Code> implicit parameter since untyped
-          variables are assigned the default &quot;field element&quot; type (ie.{" "}
-          <Code>felt</Code>).
+          variables are assigned the default field element type:{" "}
+          <Code>felt</Code>.
         </Text>
         <Text my={2} fontSize={textSize}>
           The next two functions (increment and decrement) are very similar,
@@ -162,7 +173,7 @@ const Storage = () => {
         </Text>
         <Text my={2} fontSize={textSize}>
           Note: A function without either of these decorators is only accesible
-          inside the contract.
+          from within the contract.
         </Text>
         <Text my={2} fontSize={textSize}>
           Another important note is both the increment and decrement functions
@@ -171,7 +182,8 @@ const Storage = () => {
           where the function definition occurs after the parameter list in the
           parenthesis. If we wanted to add a return variable, we would change{" "}
           <Code>{"}"}():</Code> to <Code>{"}"}() -&gt; ():</Code> and add return
-          variables inside the second set of parenthesis.
+          variables inside the second set of parenthesis (as in the{" "}
+          <Code>get</Code> function on lines 16-18).
         </Text>
       </Box>
     </>

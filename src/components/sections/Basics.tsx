@@ -51,7 +51,7 @@ const Basics = () => {
                   : MdRadioButtonUnchecked
               }
             />
-            Hello World!
+            Hello World
           </ListItem>
         </Link>
         <Link
