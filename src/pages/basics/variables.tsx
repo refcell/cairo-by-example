@@ -7,6 +7,8 @@ import {
   useBreakpointValue,
   useColorMode,
   Link,
+  UnorderedList,
+  ListItem,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 
@@ -132,24 +134,98 @@ const Variables = () => {
       </Box>
       <Box my={4}>
         <Text my={2} fontSize={textSize}>
-          In the example above, data types are defined in the <Code>types</Code>
-          function. Concretely, there is only one data type in cairo - the{" "}
-          <Code>felt</Code> or <Code>field element</Code>.
+          There are four main types of variables in Cairo.
         </Text>
+        <UnorderedList mt={2} mb={2}>
+          <ListItem>Constants</ListItem>
+          <ListItem>References</ListItem>
+          <ListItem>Local Variables</ListItem>
+          <ListItem>Temporary Variables</ListItem>
+        </UnorderedList>
+        <Heading mt={2} as="h6" size="md">
+          Constants
+        </Heading>
         <Text my={2} fontSize={textSize}>
-          From the{" "}
+          Constants are expressions that aren&apos;t translated into
+          instructions during compilation, but replace instances of the variable
+          with it&apos;s value. For example:
+        </Text>
+        <Box
+          backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
+          p={2}
+          pl={4}
+          marginTop={2}
+          borderRadius={4}
+        >
+          <Text fontSize={textSize}>const x = 5;</Text>
+          <Text fontSize={textSize}>let y = x;</Text>
+        </Box>
+        <Text my={2} fontSize={textSize}>
+          is compiled into:
+        </Text>
+        <Box
+          backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
+          p={2}
+          pl={4}
+          marginTop={2}
+          borderRadius={4}
+        >
+          <Text fontSize={textSize}>let y = 5;</Text>
+        </Box>
+        <Heading mt={2} as="h6" size="md">
+          Local Variables
+        </Heading>
+        <Heading mt={2} as="h6" size="md">
+          Temporary Variables
+        </Heading>
+        <Heading mt={2} as="h6" size="md">
+          References
+        </Heading>
+        <Text my={2} fontSize={textSize}>
+          Technically, references aren&apos;t variables. They are definitions
+          assigned to scopes (think: blocks of codes) through static analysis.
+          References can be reassigned. So, the following code is valid:
+        </Text>
+        <Box
+          backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
+          p={2}
+          pl={4}
+          marginTop={2}
+          borderRadius={4}
+        >
+          <Text fontSize={textSize}>let x = 1;</Text>
+          <Text fontSize={textSize}>let x = 2;</Text>
+        </Box>
+        <Text my={2} fontSize={textSize}>
+          Side note from the Cairo docs:
+        </Text>
+        <Box
+          backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
+          padding={4}
+          marginTop={2}
+          borderRadius={4}
+        >
+          <Text fontSize={textSize}>
+            It is important to note that a short-string is simply a way to
+            represent a field element, it not a real string. Cairo doesn&apos;t
+            support strings at the moment, and when it does strings will be
+            represented using <Code>&quot;</Code> rather than
+            <Code>&apos;</Code> (similar to the distinction in C/C++).
+          </Text>
+        </Box>
+        <Text my={2} fontSize={textSize}>
+          To dive deeper into variables and memory, read{" "}
           <Link
             isExternal
             textDecoration="underline"
             outline="none !important"
             boxShadow="none !important"
-            href="https://www.cairo-lang.org/docs/how_cairo_works/cairo_intro.html"
+            href="https://www.cairo-lang.org/docs/how_cairo_works/consts.html"
           >
-            Cairo docs
+            Cairo Variables Docs
           </Link>
-          :
         </Text>
-        <Box
+        {/* <Box
           backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
           padding={4}
           marginTop={4}
@@ -182,7 +258,7 @@ const Variables = () => {
           <i>and then</i> performs the arithmetic operation. So instead of
           having <Code>&apos;ac1&apos;</Code>, line 16 assigns the value{" "}
           <Code>&apos;ac&apos;</Code> to <Code>mangled_string</Code>.
-        </Text>
+        </Text> */}
       </Box>
     </>
   );
