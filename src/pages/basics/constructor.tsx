@@ -45,7 +45,7 @@ const Constructor = () => {
           from starkware.cairo.common.cairo_builtins import HashBuiltin
 
           @storage_var
-          func variable() -> (res : felt):
+          func owner() -> (res : felt):
           end
 
           @constructor
@@ -54,9 +54,9 @@ const Constructor = () => {
             \tpedersen_ptr: HashBuiltin*,
             \trange_check_ptr
           }(
-            \tvar: felt
+            \towner: felt
           ):
-            \tvariable.write(var)
+            \towner.write(owner)
             \treturn ()
           end`
             .split("\n")
@@ -86,15 +86,19 @@ const Constructor = () => {
           The constructor is an optional function that is guaranteed to run once
           contract is deployed (aka created). To define a constructor for
           Starknet, the <Code>@constructor</Code> decorator must appear before
-          its declaration and the function name must be <Code>constructor</Code>{" "}
+          its declaration and the function name must be <Code>constructor</Code>
           .
+        </Text>
+        <Text my={2} fontSize={textSize}>
+          On line 18, we demonstrate writing a constructor input to state. A
+          canonical pattern for saving the contract owner in a storage variable.
         </Text>
         <Text my={2} fontSize={textSize}>
           When deploying a contract to Starknet with a constructor, inputs must
           be passed into the deployment command that match arguments to the
           constructor. For example, in the constructor above, we have to pass in
           an input value of type <Code>felt</Code> since the constructor has an
-          argument called <Code>var</Code> that is of type <Code>felt</Code>. An
+          argument called <Code>owner</Code> that is of type <Code>felt</Code>.
           example deployment command for this contract (if saved as{" "}
           <Code>constructor.cairo</Code>) would be:
         </Text>
@@ -116,7 +120,7 @@ const Constructor = () => {
         </Box>
         <Text my={2} fontSize={textSize}>
           In this case <Code>100</Code> is passed into the constructor on
-          deployment as <Code>var</Code> on line 16.
+          deployment as <Code>owner</Code> on line 16.
         </Text>
       </Box>
     </>

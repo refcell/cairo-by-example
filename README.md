@@ -27,7 +27,7 @@ yarn dev
 
 ## Source Code
 
-Contracts are defined and available for extensible use in the [cairomate repository](https://github.com/a5f9t4/cairomate).
+Contracts are defined and available for extensible use in the [contracts](./contracts) subdirectory.
 
 ## Acknowledgements
 
