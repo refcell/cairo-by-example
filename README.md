@@ -29,6 +29,10 @@ yarn dev
 
 Contracts are defined and available for extensible use in the [cairomate repository](https://github.com/a5f9t4/cairomate).
 
+## Acknowledgements
+
+- [Perama's Notes](https://perama-v.github.io/cairo/by-example/)
+
 ## Security
 
 This project is still in a very early and experimental phase. It has never been audited nor thoroughly reviewed for security vulnerabilities. Not recommended for production use.

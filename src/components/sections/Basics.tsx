@@ -12,9 +12,12 @@ import { useEffect, useState } from "react";
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from "react-icons/md";
 
 const Basics = () => {
+  // ** Page Visit Logic ** //
   const [visitedHelloWorld, setVisitedHelloWorld] = useState(false);
   const [visitedStorage, setVisitedStorage] = useState(false);
   const [visitedTypes, setVisitedTypes] = useState(false);
+  const [visitedVariables, setVisitedVariables] = useState(false);
+
   const textSize = useBreakpointValue({
     base: "xs",
     sm: "md",
@@ -28,6 +31,9 @@ const Basics = () => {
       localStorage.getItem("pages/basics/storage") === "visited"
     );
     setVisitedTypes(localStorage.getItem("pages/basics/types") === "visited");
+    setVisitedVariables(
+      localStorage.getItem("pages/basics/variables") === "visited"
+    );
   }, []);
 
   return (
@@ -82,6 +88,22 @@ const Basics = () => {
               as={visitedTypes ? MdRadioButtonChecked : MdRadioButtonUnchecked}
             />
             Data Types
+          </ListItem>
+        </Link>
+        <Link
+          outline="none !important"
+          boxShadow="none !important"
+          mt={2}
+          size={textSize}
+          href="/basics/variables"
+        >
+          <ListItem>
+            <ListIcon
+              as={
+                visitedVariables ? MdRadioButtonChecked : MdRadioButtonUnchecked
+              }
+            />
+            Variables
           </ListItem>
         </Link>
       </List>
