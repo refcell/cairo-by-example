@@ -50,16 +50,16 @@ const Variables = () => {
           const global_variable = 10
 
           @external
-          func accessGlobalVariables{
-              syscall_ptr : felt*,
-              pedersen_ptr : HashBuiltin*,
-              range_check_ptr
-            }() -> (
-              global_variable: felt
-            ):
-              # Since we can access global constants from any function,
-              # we can simply return it here
-              return (global_variable)
+          func access_global_variables{
+              \t\tsyscall_ptr: felt*,
+              \t\tpedersen_ptr: HashBuiltin*,
+              \t\trange_check_ptr
+            \t}() -> (
+              \t\tglobal_variable: felt
+            \t):
+              \t\t# Since we can access global constants from any function,
+              \t\t# we can simply return it here
+              \t\treturn (global_variable)
           end
 
           # Since memory doesn't persist in vanilla cairo,
@@ -71,44 +71,34 @@ const Variables = () => {
 
           @external
           func variables{
-              syscall_ptr : felt*,
-              pedersen_ptr : HashBuiltin*,
-              range_check_ptr
-            }():
-              alloc_locals
+            \tsyscall_ptr: felt*,
+            \tpedersen_ptr: HashBuiltin*,
+            \trange_check_ptr
+          }():
+            \talloc_locals  # allocates space for \`local\` variables to be used
 
-            # Transient, revocable felt (reference).
-            let reference = 50
-            # Redefine reference.
-            let reference = 51
+            \tlet reference = 50  # Ephemeral, revocable felt
+            \tlet reference = 51  # Redefine reference
 
-            # Transient, revocable expression (temporary variable).
-            tempvar my_tempvar = 2 * reference
-            # Redefine tempvar.
-            tempvar my_tempvar = 3 * reference
+            \ttempvar my_tempvar = 2 * reference  # Ephemeral, revocable expression
+            \ttempvar my_tempvar = 3 * reference  # Redefine tempvar
 
-            # Transient, non-revocable felt (constant).
-            const my_const = 60
-            # Cannot redefine const (const my_const = 61)
+            \tconst my_const = 60 # Ephemeral, non-revocable felt. cannot redefine
 
-            # Transient, non-revoacable expression (local). Requires alloc_locals.
-            local my_local = 70
-            # Cannot redefine local (local my_local = 71).
+            \t# \`local\` variables require \`alloc_locals\` to appear at the start of the function.
+            \tlocal my_local = 70  # Ephemeral, non-revoacable expression, cannot redefine
 
-            # Persistent (@storage_var) storage, without a variable.
-            persistent_state.write(80)
-            # Redefine state.
-            persistent_state.write(81)
+            \tpersistent_state.write(1)  # Persistent storage
+            \tpersistent_state.write(2)  # Redefine storage (aka state)
 
-            # A variable can be assigned to a function output:
-            # let (my_var) = func().
-            let (my_reference_2) = persistent_state.read()
-            let (local my_local_2) = persistent_state.read()
+            \tlet (state) = persistent_state.read()  # Assign reference to function output
+            \tlet (local my_local_2) = persistent_state.read()  # Assign local variable
 
-            assert my_local_2 = 81
+            \t# !! Important !! #
+            \tassert state = 2  # *Assigns* the value 2 to the state reference
+            \tassert my_local_2 = 2  # Asserts that my_local_2 holds the value 2
 
-            return ()
-
+            \treturn ()
           end`
             .split("\n")
             .map((item, index) => {
@@ -138,17 +128,17 @@ const Variables = () => {
         </Text>
         <UnorderedList mt={2} mb={2}>
           <ListItem>Constants</ListItem>
-          <ListItem>References</ListItem>
-          <ListItem>Local Variables</ListItem>
           <ListItem>Temporary Variables</ListItem>
+          <ListItem>Local Variables</ListItem>
+          <ListItem>References</ListItem>
         </UnorderedList>
-        <Heading mt={2} as="h6" size="md">
+        <Heading mt={4} as="h6" size="md">
           Constants
         </Heading>
         <Text my={2} fontSize={textSize}>
           Constants are expressions that aren&apos;t translated into
           instructions during compilation, but replace instances of the variable
-          with it&apos;s value. For example:
+          with its value. For example:
         </Text>
         <Box
           backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
@@ -157,8 +147,8 @@ const Variables = () => {
           marginTop={2}
           borderRadius={4}
         >
-          <Text fontSize={textSize}>const x = 5;</Text>
-          <Text fontSize={textSize}>let y = x;</Text>
+          <Text fontSize={textSize}>const x = 5</Text>
+          <Text fontSize={textSize}>let y = x</Text>
         </Box>
         <Text my={2} fontSize={textSize}>
           is compiled into:
@@ -167,35 +157,87 @@ const Variables = () => {
           backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
           p={2}
           pl={4}
-          marginTop={2}
+          my={2}
           borderRadius={4}
         >
-          <Text fontSize={textSize}>let y = 5;</Text>
+          <Text fontSize={textSize}>let y = 5</Text>
         </Box>
-        <Heading mt={2} as="h6" size="md">
-          Local Variables
-        </Heading>
-        <Heading mt={2} as="h6" size="md">
+        <Heading mt={4} as="h6" size="md">
           Temporary Variables
         </Heading>
-        <Heading mt={2} as="h6" size="md">
-          References
-        </Heading>
         <Text my={2} fontSize={textSize}>
-          Technically, references aren&apos;t variables. They are definitions
-          assigned to scopes (think: blocks of codes) through static analysis.
-          References can be reassigned. So, the following code is valid:
+          Temporary variables are available within the current scope, so long as
+          they are not revoked. Declaring temporary variables follows this
+          syntax: <Code>tempvar var_name = &lt;expr&gt;</Code> and may be
+          redefined as shown on lines 40 & 41.
+        </Text>
+        <Text my={2} fontSize={textSize}>
+          Since temporary variables internally rely on the memory register of
+          the current scope <Code>ap</Code>, jumping to different scopes usually
+          results in revoking the temporary variable. Jumping to different
+          scopes occurs during label or call instructions (function calls). For
+          example, the following won&apos;t compile since the temporary variable
+          is revoked on the second line:
         </Text>
         <Box
           backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
           p={2}
           pl={4}
-          marginTop={2}
+          my={2}
           borderRadius={4}
         >
-          <Text fontSize={textSize}>let x = 1;</Text>
-          <Text fontSize={textSize}>let x = 2;</Text>
+          <Text fontSize={textSize}>tempvar x = 1</Text>
+          <Text fontSize={textSize}>randomFunction() # x is revoked here</Text>
+          <Text fontSize={textSize}>let y = x</Text>
         </Box>
+        <Heading mt={4} as="h6" size="md">
+          Local Variables
+        </Heading>
+        <Text my={2} fontSize={textSize}>
+          Unlike temporary variables which are revoked by changing scopes, local
+          variables depend on a specific register called <Code>fp</Code>{" "}
+          allowing them to persist across function calls and label instructions.
+        </Text>
+        <Text my={2} fontSize={textSize}>
+          Locals are defined as shown on line 46, using the keyword{" "}
+          <Code>local</Code>. The instruction <Code>alloc_locals</Code> must
+          occur at the beginning of the function, as specified on line 35.
+          Pedantically, the <Code>alloc_locals</Code> instruction compiles into{" "}
+          <Code>ap += SIZEOF_LOCALS</Code>, creating &quot;space&quot; for
+          locals to be stored before any other variables.
+        </Text>
+        <Text my={2} fontSize={textSize}>
+          Currently, a local variable&apos;s type must be explicitly stated,
+          otherwise defaulting to the <Code>felt</Code> type (as on line 46).
+        </Text>
+        <Heading mt={4} as="h6" size="md">
+          References
+        </Heading>
+        <Text my={2} fontSize={textSize}>
+          Technically, references aren&apos;t variables. They are definitions
+          assigned to scopes (think: blocks of codes) through static analysis.
+          Further, references can be reassigned, so the following code is valid:
+        </Text>
+        <Box
+          backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
+          p={2}
+          pl={4}
+          my={2}
+          borderRadius={4}
+        >
+          <Text fontSize={textSize}>let x = 1</Text>
+          <Text fontSize={textSize}>let x = 2</Text>
+        </Box>
+        <Text my={2} fontSize={textSize}>
+          Similarly to constants, reference variables are substituted with their
+          value at compile time.
+        </Text>
+        <Text my={2} fontSize={textSize}>
+          Additionally, references may be revoked at the appearance of a label
+          or call instruction, just like temporary variables. If the variable is
+          required to persist across function calls, it&apos;s best to use a
+          local variable.
+        </Text>
         <Text my={2} fontSize={textSize}>
           Side note from the Cairo docs:
         </Text>
@@ -225,40 +267,6 @@ const Variables = () => {
             Cairo Variables Docs
           </Link>
         </Text>
-        {/* <Box
-          backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
-          padding={4}
-          marginTop={4}
-          borderRadius={4}
-        >
-          <Text fontSize={textSize}>
-            In Cairo, the basic data type is an integer in the range 0 &lt;= x
-            &lt; P where P is a prime number (for example, P = 2^251 + 17 *
-            2^192 + 1 is a standard choice). All the computations are done
-            modulo P.
-          </Text>
-        </Box>
-        <Text my={2} fontSize={textSize}>
-          Practically, it&apos;s best to think of a felt as a 252 bit unsigned
-          integer.
-        </Text>
-        <Text my={2} fontSize={textSize}>
-          Since felt is the only data type, cairo supports strings by using
-          ASCII-encoded numbers. That is, each character is mapped to one byte.
-          So, when we write a string literal like <Code>&apos;hello&apos;</Code>{" "}
-          , it is parsed as an ascii hex code <Code>0x68656c6c6f</Code>, which
-          cairo compiles into the felt <Code>448378203247</Code>.
-        </Text>
-        <Text my={2} fontSize={textSize}>
-          Note: String literals can be a maximum of 31 ASCII characters long.
-        </Text>
-        <Text my={2} fontSize={textSize}>
-          On lines 15-16 we show that concatenating to a string literal or short
-          string fails because cairo compiles the strings to felts{" "}
-          <i>and then</i> performs the arithmetic operation. So instead of
-          having <Code>&apos;ac1&apos;</Code>, line 16 assigns the value{" "}
-          <Code>&apos;ac&apos;</Code> to <Code>mangled_string</Code>.
-        </Text> */}
       </Box>
     </>
   );
