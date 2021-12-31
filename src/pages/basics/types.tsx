@@ -44,19 +44,19 @@ const Types = () => {
 
           @view
           func types(
-                \t\tnumber: felt
-              \t) -> (
-                \t\tstring_literal: felt,
-                \t\tmangled_string: felt,
-              \t):
-              \t# In ASCII, a = 0x61 and b = 0x62
-              \t# 'ab' = 0x6162 = 24930
-              \tlet string_literal = 'ab'
+            \tnumber: felt
+          ) -> (
+            \tstring_literal: felt,
+            \tmangled_string: felt,
+          ):
+            \t# In ASCII, a = 0x61 and b = 0x62
+            \t# 'ab' = 0x6162 = 24930
+            \tlet string_literal = 'ab'
 
-              \t# 24930 + 1 = 24931 = 0x6163 = a:61 c:63 = 'ac'
-              \tlet mangled_string = string_literal + 1
+            \t# 24930 + 1 = 24931 = 0x6163 = a:61 c:63 = 'ac'
+            \tlet mangled_string = string_literal + 1
 
-              \treturn (string_literal, mangled_string)
+            \treturn (string_literal, mangled_string)
           end`
             .split("\n")
             .map((item, index) => {

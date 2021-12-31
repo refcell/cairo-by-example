@@ -51,38 +51,38 @@ const Storage = () => {
           # Function to get the current balance.
           @view
           func get{
-                  \t\tsyscall_ptr: felt*,
-                  \t\tpedersen_ptr: HashBuiltin*,
-                  \t\trange_check_ptr
-              \t}() -> (
-                  \t\tvalue: felt
-              \t):
-              \tlet (value) = count.read()
-              \treturn (value)
+            \tsyscall_ptr: felt*,
+            \tpedersen_ptr: HashBuiltin*,
+            \trange_check_ptr
+          }() -> (
+            \tvalue: felt
+          ):
+            \tlet (value) = count.read()
+            \treturn (value)
           end
 
           # Function to increment the count by 1.
           @external
           func increment{
-                  \t\tsyscall_ptr: felt*,
-                  \t\tpedersen_ptr: HashBuiltin*,
-                  \t\trange_check_ptr
-              \t}():
-              \tlet (res) = count.read()
-              \tcount.write(res + 1)
-              \treturn ()
+            \tsyscall_ptr: felt*,
+            \tpedersen_ptr: HashBuiltin*,
+            \trange_check_ptr
+          }():
+            \tlet (res) = count.read()
+            \tcount.write(res + 1)
+            \treturn ()
           end
 
           # Function to decrement the count by 1.
           @external
           func decrement{
-                  \t\tsyscall_ptr: felt*,
-                  \t\tpedersen_ptr: HashBuiltin*,
-                  \t\trange_check_ptr
-              \t}():
-              \tlet (res) = count.read()
-              \tcount.write(res - 1)
-              \treturn ()
+            \tsyscall_ptr: felt*,
+            \tpedersen_ptr: HashBuiltin*,
+            \trange_check_ptr
+          }():
+            \tlet (res) = count.read()
+            \tcount.write(res - 1)
+            \treturn ()
           end`
             .split("\n")
             .map((item, index) => {

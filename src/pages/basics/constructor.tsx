@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 
-const Tuples = () => {
+const Constructor = () => {
   const { colorMode } = useColorMode();
   const textSize = useBreakpointValue({
     base: "xs",
@@ -18,7 +18,7 @@ const Tuples = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem("pages/basics/tuples", "visited");
+    localStorage.setItem("pages/basics/constructor", "visited");
   }, []);
 
   return (
@@ -30,7 +30,7 @@ const Tuples = () => {
         </Box>
       </Link>
       <Heading as="h3" fontSize="2xl">
-        Tuples
+        Constructor
       </Heading>
       <Box
         backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
@@ -44,23 +44,10 @@ const Tuples = () => {
 
           from starkware.cairo.common.cairo_builtins import HashBuiltin
 
-          @view
-          func deconstruct_tuple{
-            \tsyscall_ptr: felt*,
-            \tpedersen_ptr: HashBuiltin*,
-            \trange_check_ptr
-          }(
-            \ttuple: (felt, felt)
-          ) -> (
-            \titem1: felt,
-            \titem2: felt,
-            \ttuple: (felt, felt)
-          ):
-            \treturn (
-              \t\titem1=tuple[0],
-              \t\titem2=tuple[1],
-              \t\ttuple=tuple
-            \t)
+          @storage_var
+          func variable() -> (res : felt):
+          end
+
           end`
             .split("\n")
             .map((item, index) => {
@@ -86,31 +73,12 @@ const Tuples = () => {
       </Box>
       <Box my={4}>
         <Text my={2} fontSize={textSize}>
-          Tuples are an ordered collection of any combination of valid types,
-          including other tuples. Tuples are written as comma-separated lists of
-          elements enclosed in parenthesis.
-        </Text>
-        <Text my={2} fontSize={textSize}>
-          For example: {/* eslint-disable-next-line prettier/prettier */}
-          <Code>let a = (7, 6, 5)</Code>
-        </Text>
-        <Text my={2} fontSize={textSize}>
-          To reference an item inside the tuple, we use brackets like so:{" "}
-          {/* eslint-disable-next-line prettier/prettier */}
-          <Code>let a = (7, 6, 5)[2]  # let a = 5</Code>
-        </Text>
-        <Text my={2} fontSize={textSize}>
-          Since calldata and arguments and return values may be any type besides
-          pointers, we can pass tuples as arguments and return values.
-        </Text>
-        <Text my={2} fontSize={textSize}>
-          On line 12, we pass in a tuple of two felts into the{" "}
-          <Code>deconstruct_tuple</Code> function. Then on lines 16 and 21, we
-          demonstrate returning the original tuple.
+          The constructor is an optional function that is run once when the
+          contract is deployed (aka created). 
         </Text>
       </Box>
     </>
   );
 };
 
-export default Tuples;
+export default Constructor;
