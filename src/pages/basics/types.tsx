@@ -113,7 +113,7 @@ const Types = () => {
           </Text>
         </Box>
         <Text my={2} fontSize={textSize}>
-          Practically, it&apos;s best to think of a felt as a 252 bit unsigned
+          Practically, it&apos;s best to think of a felt as a 251 bit unsigned
           integer.
         </Text>
         <Text my={2} fontSize={textSize}>
