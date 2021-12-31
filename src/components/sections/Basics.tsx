@@ -17,6 +17,8 @@ const Basics = () => {
   const [visitedStorage, setVisitedStorage] = useState(false);
   const [visitedTypes, setVisitedTypes] = useState(false);
   const [visitedVariables, setVisitedVariables] = useState(false);
+  const [visitedTuples, setVisitedTuples] = useState(false);
+  const [visitedArrays, setVisitedArrays] = useState(false);
 
   const textSize = useBreakpointValue({
     base: "xs",
@@ -34,6 +36,8 @@ const Basics = () => {
     setVisitedVariables(
       localStorage.getItem("pages/basics/variables") === "visited"
     );
+    setVisitedTuples(localStorage.getItem("pages/basics/tuples") === "visited");
+    setVisitedArrays(localStorage.getItem("pages/basics/arrays") === "visited");
   }, []);
 
   return (
@@ -104,6 +108,34 @@ const Basics = () => {
               }
             />
             Variables
+          </ListItem>
+        </Link>
+        <Link
+          outline="none !important"
+          boxShadow="none !important"
+          mt={2}
+          size={textSize}
+          href="/basics/tuples"
+        >
+          <ListItem>
+            <ListIcon
+              as={visitedTuples ? MdRadioButtonChecked : MdRadioButtonUnchecked}
+            />
+            Tuples
+          </ListItem>
+        </Link>
+        <Link
+          outline="none !important"
+          boxShadow="none !important"
+          mt={2}
+          size={textSize}
+          href="/basics/arrays"
+        >
+          <ListItem>
+            <ListIcon
+              as={visitedArrays ? MdRadioButtonChecked : MdRadioButtonUnchecked}
+            />
+            Arrays
           </ListItem>
         </Link>
       </List>
