@@ -12,13 +12,14 @@ import { useEffect, useState } from "react";
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from "react-icons/md";
 
 const Basics = () => {
-  // ** Page Visit Logic ** //
+  // ** Basics Page Visit Logic ** //
   const [visitedHelloWorld, setVisitedHelloWorld] = useState(false);
   const [visitedStorage, setVisitedStorage] = useState(false);
   const [visitedTypes, setVisitedTypes] = useState(false);
   const [visitedVariables, setVisitedVariables] = useState(false);
   const [visitedTuples, setVisitedTuples] = useState(false);
   const [visitedArrays, setVisitedArrays] = useState(false);
+  const [visitedConstructor, setVisitedConstructor] = useState(false);
 
   const textSize = useBreakpointValue({
     base: "xs",
@@ -38,6 +39,9 @@ const Basics = () => {
     );
     setVisitedTuples(localStorage.getItem("pages/basics/tuples") === "visited");
     setVisitedArrays(localStorage.getItem("pages/basics/arrays") === "visited");
+    setVisitedConstructor(
+      localStorage.getItem("pages/basics/constructor") === "visited"
+    );
   }, []);
 
   return (
@@ -136,6 +140,24 @@ const Basics = () => {
               as={visitedArrays ? MdRadioButtonChecked : MdRadioButtonUnchecked}
             />
             Arrays
+          </ListItem>
+        </Link>
+        <Link
+          outline="none !important"
+          boxShadow="none !important"
+          mt={2}
+          size={textSize}
+          href="/basics/constructor"
+        >
+          <ListItem>
+            <ListIcon
+              as={
+                visitedConstructor
+                  ? MdRadioButtonChecked
+                  : MdRadioButtonUnchecked
+              }
+            />
+            Constructor
           </ListItem>
         </Link>
       </List>

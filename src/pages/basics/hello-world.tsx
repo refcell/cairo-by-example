@@ -48,7 +48,10 @@ const HelloWorld = () => {
           const world = 10002315181204  # 23, 15, 18, 12, 04.
 
           @view
-          func hello_world() -> (word1: felt, word2: felt):
+          func hello_world() -> (
+            \tword1: felt,
+            \tword2: felt
+          ):
             \treturn (hello, world)
           end`
             .split("\n")

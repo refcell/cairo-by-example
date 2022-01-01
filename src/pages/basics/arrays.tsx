@@ -43,7 +43,7 @@ const Arrays = () => {
           %builtins pedersen range_check
 
           from starkware.cairo.common.cairo_builtins import HashBuiltin
-          from starkware.cairo.common.math import assert_le, assert_nn_le, unsigned_div_rem, assert_not_zero
+          from starkware.cairo.common.math import assert_not_zero
 
           @external
           func swap_first_element(

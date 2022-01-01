@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 
-const Tuples = () => {
+const Constructor = () => {
   const { colorMode } = useColorMode();
   const textSize = useBreakpointValue({
     base: "xs",
@@ -18,7 +18,7 @@ const Tuples = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem("pages/basics/tuples", "visited");
+    localStorage.setItem("pages/basics/constructor", "visited");
   }, []);
 
   return (
@@ -30,7 +30,7 @@ const Tuples = () => {
         </Box>
       </Link>
       <Heading as="h3" fontSize="2xl">
-        Tuples
+        Constructor
       </Heading>
       <Box
         backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
@@ -44,23 +44,20 @@ const Tuples = () => {
 
           from starkware.cairo.common.cairo_builtins import HashBuiltin
 
-          @view
-          func deconstruct_tuple{
+          @storage_var
+          func owner() -> (res : felt):
+          end
+
+          @constructor
+          func constructor{
             \tsyscall_ptr: felt*,
             \tpedersen_ptr: HashBuiltin*,
             \trange_check_ptr
           }(
-            \ttuple: (felt, felt)
-          ) -> (
-            \titem1: felt,
-            \titem2: felt,
-            \ttuple: (felt, felt)
+            \towner: felt
           ):
-            \treturn (
-              \t\titem1=tuple[0],
-              \t\titem2=tuple[1],
-              \t\ttuple=tuple
-            \t)
+            \towner.write(owner)
+            \treturn ()
           end`
             .split("\n")
             .map((item, index) => {
@@ -86,31 +83,48 @@ const Tuples = () => {
       </Box>
       <Box my={4}>
         <Text my={2} fontSize={textSize}>
-          Tuples are an ordered collection of any combination of valid types,
-          including other tuples. Tuples are written as comma-separated lists of
-          elements enclosed in parenthesis.
+          The constructor is an optional function that is guaranteed to run once
+          contract is deployed (aka created). To define a constructor for
+          Starknet, the <Code>@constructor</Code> decorator must appear before
+          its declaration and the function name must be <Code>constructor</Code>
+          .
         </Text>
         <Text my={2} fontSize={textSize}>
-          For example: {/* eslint-disable-next-line prettier/prettier */}
-          <Code>let a = (7, 6, 5)</Code>
+          On line 18, we demonstrate writing a constructor input to state. A
+          canonical pattern for saving the contract owner in a storage variable.
         </Text>
         <Text my={2} fontSize={textSize}>
-          To reference an item inside the tuple, we use brackets like so:{" "}
-          {/* eslint-disable-next-line prettier/prettier */}
-          <Code>let a = (7, 6, 5)[2] # let a = 5</Code>
+          When deploying a contract to Starknet with a constructor, inputs must
+          be passed into the deployment command that match arguments to the
+          constructor. For example, in the constructor above, we have to pass in
+          an input value of type <Code>felt</Code> since the constructor has an
+          argument called <Code>owner</Code> that is of type <Code>felt</Code>.
+          An example deployment command for this contract (if saved as{" "}
+          <Code>constructor.cairo</Code>) would be:
         </Text>
+        <Box
+          backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
+          p={4}
+          my={4}
+          borderRadius={4}
+        >
+          <Text fontSize={textSize}># compile</Text>
+          <Text mb={4} fontSize={textSize}>
+            starknet-compile constructor.cairo --output constructor.json --abi
+            constructor_abi.json
+          </Text>
+          <Text fontSize={textSize}># deploy</Text>
+          <Text fontSize={textSize}>
+            starknet deploy --contract constructor.json --inputs 100
+          </Text>
+        </Box>
         <Text my={2} fontSize={textSize}>
-          Since calldata and arguments and return values may be any type besides
-          pointers, we can pass tuples as arguments and return values.
-        </Text>
-        <Text my={2} fontSize={textSize}>
-          On line 12, we pass in a tuple of two felts into the{" "}
-          <Code>deconstruct_tuple</Code> function. Then on lines 16 and 21, we
-          demonstrate returning the original tuple.
+          In this case <Code>100</Code> is passed into the constructor on
+          deployment as <Code>owner</Code> on line 16.
         </Text>
       </Box>
     </>
   );
 };
 
-export default Tuples;
+export default Constructor;

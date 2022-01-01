@@ -51,15 +51,15 @@ const Variables = () => {
 
           @external
           func access_global_variables{
-              \t\tsyscall_ptr: felt*,
-              \t\tpedersen_ptr: HashBuiltin*,
-              \t\trange_check_ptr
-            \t}() -> (
-              \t\tglobal_variable: felt
-            \t):
-              \t\t# Since we can access global constants from any function,
-              \t\t# we can simply return it here
-              \t\treturn (global_variable)
+            \tsyscall_ptr: felt*,
+            \tpedersen_ptr: HashBuiltin*,
+            \trange_check_ptr
+          }() -> (
+            \tglobal_variable: felt
+          ):
+            \t# Since we can access global constants from any function,
+            \t# we can simply return it here
+            \treturn (global_variable)
           end
 
           # Since memory doesn't persist in vanilla cairo,
