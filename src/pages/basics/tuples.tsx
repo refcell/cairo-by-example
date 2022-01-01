@@ -97,7 +97,7 @@ const Tuples = () => {
         <Text my={2} fontSize={textSize}>
           To reference an item inside the tuple, we use brackets like so:{" "}
           {/* eslint-disable-next-line prettier/prettier */}
-          <Code>let a = (7, 6, 5)[2]  # let a = 5</Code>
+          <Code>let a = (7, 6, 5)[2] # let a = 5</Code>
         </Text>
         <Text my={2} fontSize={textSize}>
           Since calldata and arguments and return values may be any type besides
