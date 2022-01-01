@@ -10,7 +10,6 @@ import "@fontsource/lexend/latin.css";
 
 import defaultSEOConfig from "../../next-seo.config";
 import { Layout } from "components/layout";
-
 import "material-react-toastify/dist/ReactToastify.css";
 import createEmotionCache from "styles/createEmotionCache";
 import customTheme from "styles/customTheme";
