@@ -99,7 +99,7 @@ const Constructor = () => {
           constructor. For example, in the constructor above, we have to pass in
           an input value of type <Code>felt</Code> since the constructor has an
           argument called <Code>owner</Code> that is of type <Code>felt</Code>.
-          example deployment command for this contract (if saved as{" "}
+          An example deployment command for this contract (if saved as{" "}
           <Code>constructor.cairo</Code>) would be:
         </Text>
         <Box
