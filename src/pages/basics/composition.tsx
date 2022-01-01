@@ -18,7 +18,7 @@ const Arrays = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem("pages/basics/arrays", "visited");
+    localStorage.setItem("pages/basics/composition", "visited");
   }, []);
 
   return (
@@ -30,12 +30,40 @@ const Arrays = () => {
         </Box>
       </Link>
       <Heading as="h3" fontSize="2xl">
-        Arrays
+        Composition
       </Heading>
+      <Text my={2} fontSize={textSize}>
+        As of Cairo (and Starknet) version 0.6.2, there is no established
+        pattern for contract inheritance. Instead, we can use composition,
+        whereby a contract can import functionality from other contracts.
+        Further, by specifying a contract owner, one contract can <i>own</i> an
+        instance of another - the intent of composition.
+      </Text>
+      <Text my={2} fontSize={textSize}>
+        For a Starknet project directory (e.g.{" "}
+        <Link isExternal href="https://github.com/a5f9t4/cairostarter">
+          cairostarter
+        </Link>
+        that looks like:
+      </Text>
       <Box
         backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
         p={4}
         my={4}
+        borderRadius={4}
+      >
+        <Text fontSize={textSize}>contracts</Text>
+        <Text fontSize={textSize}>├─ parent.cairo</Text>
+        <Text fontSize={textSize}>└─ child.cairo</Text>
+      </Box>
+      <Text my={2} fontSize={textSize}>
+        We can import functionality from the <Code>child.cairo</Code> contract
+        into <Code>parent.cairo</Code> as shown below.
+      </Text>
+      <Box
+        backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
+        p={4}
+        mu={4}
         borderRadius={4}
       >
         <Text fontSize={textSize}>
