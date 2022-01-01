@@ -1,5 +1,7 @@
 import { Heading, Box } from "@chakra-ui/react";
 
+import { version } from "../../../package.json";
+
 const WelcomeText = () => {
   return (
     <>
@@ -8,10 +10,12 @@ const WelcomeText = () => {
       </Heading>
 
       <Box mt={2} wordWrap="break">
-        These examples are
+        v {version}
+      </Box>
+
+      <Box mt={2} wordWrap="break">
         <span
           style={{
-            marginLeft: "0.25em",
             marginRight: "0.25em",
             fontWeight: "bold",
           }}
@@ -29,19 +33,6 @@ const WelcomeText = () => {
           Minimal
         </span>
         Starknet Contracts.
-      </Box>
-      <Box mt={2} wordWrap="break">
-        ⚠️
-        <span
-          style={{
-            marginLeft: "0.25em",
-            marginRight: "0.25em",
-            fontWeight: "bold",
-          }}
-        >
-          NOT
-        </span>
-        recommended for production ⚠️
       </Box>
     </>
   );

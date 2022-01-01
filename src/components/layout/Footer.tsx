@@ -5,6 +5,7 @@ import {
   Image,
   Code,
   useBreakpointValue,
+  Box,
 } from "@chakra-ui/react";
 import styled from "styled-components";
 
@@ -23,53 +24,68 @@ const Footer = () => {
   });
 
   return (
-    <Flex
-      as="footer"
-      width="full"
-      pb={8}
-      align="center"
-      justifyContent="center"
-      flexWrap="wrap"
-    >
-      <Text my={1} size={textSize}>
-        {new Date().getFullYear()}
-      </Text>
-      <DOT my={1} ml={2} size={textSize}>
-        {" • "}
-      </DOT>
-      <Text my={1} mx={2} size={textSize}>
-        Send ❤️ to{" "}
-        <Link
-          textDecoration="none !important"
-          outline="none !important"
-          boxShadow="none !important"
-          href="https://etherscan.io/address/velleity.eth"
-          isExternal
+    <Flex direction="column">
+      <Box mx="auto" mt={2} wordWrap="break">
+        ⚠️
+        <span
+          style={{
+            marginLeft: "0.25em",
+            marginRight: "0.25em",
+            fontWeight: "bold",
+          }}
         >
-          velleity.eth
-        </Link>{" "}
-      </Text>
-      <DOT my={1} mr={2} size={textSize}>
-        {" • "}
-      </DOT>
-      <Text my={1} size={textSize}>
-        <Link
-          textDecoration="none !important"
-          outline="none !important"
-          boxShadow="none !important"
-          href="https://github.com/a5f9t4/cairo-by-example"
-          isExternal
-        >
-          <Code>github.com/a5f9t4/cairo-by-example</Code>
+          NOT
+        </span>
+        recommended for production ⚠️
+      </Box>
+      <Flex
+        as="footer"
+        width="full"
+        pb={8}
+        align="center"
+        justifyContent="center"
+        flexWrap="wrap"
+      >
+        <Text my={1} size={textSize}>
+          {new Date().getFullYear()}
+        </Text>
+        <DOT my={1} ml={2} size={textSize}>
+          {" • "}
+        </DOT>
+        <Text my={1} mx={2} size={textSize}>
+          Send ❤️ to{" "}
+          <Link
+            textDecoration="none !important"
+            outline="none !important"
+            boxShadow="none !important"
+            href="https://etherscan.io/address/velleity.eth"
+            isExternal
+          >
+            velleity.eth
+          </Link>{" "}
+        </Text>
+        <DOT my={1} mr={2} size={textSize}>
+          {" • "}
+        </DOT>
+        <Text my={1} size={textSize}>
+          <Link
+            textDecoration="none !important"
+            outline="none !important"
+            boxShadow="none !important"
+            href="https://github.com/a5f9t4/cairo-by-example"
+            isExternal
+          >
+            <Code>github.com/a5f9t4/cairo-by-example</Code>
+          </Link>
+        </Text>
+        <Link my={1} href={repoLink} isExternal ml={2}>
+          <Image
+            // align="center"
+            src="https://img.shields.io/github/stars/a5f9t4/cairo-by-example?style=social"
+            alt="github stars"
+          />
         </Link>
-      </Text>
-      <Link my={1} href={repoLink} isExternal ml={2}>
-        <Image
-          // align="center"
-          src="https://img.shields.io/github/stars/a5f9t4/cairo-by-example?style=social"
-          alt="github stars"
-        />
-      </Link>
+      </Flex>
     </Flex>
   );
 };
