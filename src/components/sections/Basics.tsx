@@ -20,6 +20,7 @@ const Basics = () => {
   const [visitedTuples, setVisitedTuples] = useState(false);
   const [visitedArrays, setVisitedArrays] = useState(false);
   const [visitedConstructor, setVisitedConstructor] = useState(false);
+  const [visitedComposition, setVisitedComposition] = useState(false);
 
   const textSize = useBreakpointValue({
     base: "xs",
@@ -41,6 +42,9 @@ const Basics = () => {
     setVisitedArrays(localStorage.getItem("pages/basics/arrays") === "visited");
     setVisitedConstructor(
       localStorage.getItem("pages/basics/constructor") === "visited"
+    );
+    setVisitedComposition(
+      localStorage.getItem("pages/basics/composition") === "visited"
     );
   }, []);
 
@@ -158,6 +162,24 @@ const Basics = () => {
               }
             />
             Constructor
+          </ListItem>
+        </Link>
+        <Link
+          outline="none !important"
+          boxShadow="none !important"
+          mt={2}
+          size={textSize}
+          href="/basics/composition"
+        >
+          <ListItem>
+            <ListIcon
+              as={
+                visitedComposition
+                  ? MdRadioButtonChecked
+                  : MdRadioButtonUnchecked
+              }
+            />
+            Composition
           </ListItem>
         </Link>
       </List>

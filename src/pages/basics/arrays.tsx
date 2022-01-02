@@ -34,8 +34,8 @@ const Arrays = () => {
       </Heading>
       <Box
         backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
-        padding={4}
-        marginTop={4}
+        p={4}
+        my={4}
         borderRadius={4}
       >
         <Text fontSize={textSize}>
@@ -47,6 +47,11 @@ const Arrays = () => {
 
           @external
           func swap_first_element(
+            \ta_len: felt,
+            \ta: felt*,
+            \tb_len: felt,
+            \tb : felt*
+          ) -> (
             \ta_len: felt,
             \ta: felt*,
             \tb_len: felt,
@@ -109,7 +114,7 @@ const Arrays = () => {
           type <Code>felt*</Code>.
         </Text>
         <Text my={2} fontSize={textSize}>
-          On line 8 & 9 (as well as 10 & 11), this pattern is followed to pass
+          On line 9 & 10 (as well as 11 & 12), this pattern is followed to pass
           two arrays into the <Code>swap_first_element</Code> function. We also
           return two arrays on lines 18-19 and 20-21.
         </Text>

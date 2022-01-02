@@ -10,6 +10,11 @@ func swap_first_element(
     a: felt*,
     b_len: felt,
     b : felt*
+) -> (
+    a_len: felt,
+    a: felt*,
+    b_len: felt,
+    b : felt*
 ):
     assert_not_zero(a_len)
     assert_not_zero(b_len)

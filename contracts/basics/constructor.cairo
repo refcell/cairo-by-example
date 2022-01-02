@@ -4,7 +4,7 @@
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 
 @storage_var
-func owner() -> (res : felt):
+func _owner() -> (res : felt):
 end
 
 @constructor
@@ -15,6 +15,6 @@ func constructor{
 }(
     owner: felt
 ):
-    owner.write(owner)
+    _owner.write(owner)
     return ()
 end
