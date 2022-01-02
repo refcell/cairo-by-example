@@ -45,7 +45,7 @@ const Constructor = () => {
           from starkware.cairo.common.cairo_builtins import HashBuiltin
 
           @storage_var
-          func owner() -> (res : felt):
+          func _owner() -> (res : felt):
           end
 
           @constructor
@@ -56,7 +56,7 @@ const Constructor = () => {
           }(
             \towner: felt
           ):
-            \towner.write(owner)
+            \t_owner.write(owner)
             \treturn ()
           end`
             .split("\n")

@@ -54,9 +54,14 @@ const Arrays = () => {
         my={4}
         borderRadius={4}
       >
-        <Text fontSize={textSize}>contracts</Text>
-        <Text fontSize={textSize}>├─ parent.cairo</Text>
-        <Text fontSize={textSize}>└─ child.cairo</Text>
+        <Text fontSize={textSize}>contracts/</Text>
+        <Text fontSize={textSize}>└─ basics/</Text>
+        <Text fontSize={textSize} ml={6}>
+          ├─ parent.cairo
+        </Text>
+        <Text fontSize={textSize} ml={6}>
+          └─ child.cairo
+        </Text>
       </Box>
       <Text my={2} fontSize={textSize}>
         We can import functionality from the <Code>child.cairo</Code> contract
@@ -72,10 +77,11 @@ const Arrays = () => {
           {`# parent.cairo
 
           %lang starknet
-          %builtins pedersen range_check
+          # We don't need to add the builtin directives here since they are included in child.cairo
+          # %builtins pedersen range_check
 
           from starkware.cairo.common.cairo_builtins import HashBuiltin
-          from contracts.child import add_five
+          from contracts.basics.child import add_five
 
           @storage_var
           func balance() -> (bal: felt):
@@ -87,7 +93,6 @@ const Arrays = () => {
             \tpedersen_ptr: HashBuiltin*,
             \trange_check_ptr
           }():
-            \tassert_not_zero(amount)
             \tlet (bal: felt) = balance.read()
             \tlet (new_bal: felt) = add_five(bal)
             \tbalance.write(new_bal)
@@ -99,7 +104,7 @@ const Arrays = () => {
       </Box>
       <Box my={4}>
         <Text my={2} fontSize={textSize}>
-          On line 7 of <Code>parent.cairo</Code>, we import the{" "}
+          On line 8 of <Code>parent.cairo</Code>, we import the{" "}
           <Code>add_five</Code> function from <Code>child.cairo</Code> (defined
           below).
         </Text>
@@ -114,6 +119,7 @@ const Arrays = () => {
           {`# child.cairo
 
           %lang starknet
+          %builtins pedersen range_check
 
           @external
           func add_five(
@@ -130,9 +136,11 @@ const Arrays = () => {
       </Box>
       <Box my={4}>
         <Text my={2} fontSize={textSize}>
-          On line 8 & 9 (as well as 10 & 11), this pattern is followed to pass
-          two arrays into the <Code>swap_first_element</Code> function. We also
-          return two arrays on lines 18-19 and 20-21.
+          Since we only import the <Code>add_five</Code> function, we don&apos;t
+          need to deploy <Code>child.cairo</Code> along with{" "}
+          <Code>parent.cairo</Code>. When we deploy <Code>parent.cairo</Code>,
+          Starknet will automatically source the necessary code from{" "}
+          <Code>child.cairo</Code> and include it in the deployment.
         </Text>
       </Box>
     </>

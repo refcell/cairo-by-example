@@ -23,7 +23,7 @@ end
 # Starknet exposes the @storage_var decorator to create
 # persistent state variables
 @storage_var
-func storage() -> (res : felt):
+func persistent_state() -> (res : felt):
 end
 
 @external

@@ -1,6 +1,7 @@
 # child.cairo
 
 %lang starknet
+%builtins pedersen range_check
 
 @external
 func add_five(
