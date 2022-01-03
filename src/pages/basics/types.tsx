@@ -1,4 +1,3 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
   Box,
   Text,
@@ -9,6 +8,8 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
+
+import { BackButton } from "components/layout";
 
 const Types = () => {
   const { colorMode } = useColorMode();
@@ -23,12 +24,7 @@ const Types = () => {
 
   return (
     <>
-      <Link outline="none !important" boxShadow="none !important" href="/">
-        <Box mb={3} display="flex" flexDirection="row">
-          <ArrowBackIcon my="auto" mr={1} />
-          <Text as="h6">Back</Text>
-        </Box>
-      </Link>
+      <BackButton />
       <Heading as="h3" fontSize="2xl">
         Data Types
       </Heading>
