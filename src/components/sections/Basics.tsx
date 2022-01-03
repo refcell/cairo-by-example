@@ -1,13 +1,14 @@
 import {
   Box,
   Heading,
-  Link,
   List,
   ListIcon,
   ListItem,
   useBreakpointValue,
+  Text,
   // useColorMode,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from "react-icons/md";
 
@@ -54,134 +55,182 @@ const Basics = () => {
         Basics
       </Heading>
       <List mt={3} mb={5} spacing={4}>
-        <Link
+        <ListItem
           outline="none !important"
           boxShadow="none !important"
-          mt={2}
+          m="0 !important"
+          _hover={{
+            cursor: "pointer",
+            textDecoration: "underline",
+          }}
           size={textSize}
-          href="/basics/hello-world"
         >
-          <ListItem>
-            <ListIcon
-              as={
-                visitedHelloWorld
-                  ? MdRadioButtonChecked
-                  : MdRadioButtonUnchecked
-              }
-            />
-            Hello World
-          </ListItem>
-        </Link>
-        <Link
+          <Link passHref href="/basics/hello-world">
+            <Text>
+              <ListIcon
+                as={
+                  visitedHelloWorld
+                    ? MdRadioButtonChecked
+                    : MdRadioButtonUnchecked
+                }
+              />
+              Hello World
+            </Text>
+          </Link>
+        </ListItem>
+        <ListItem
           outline="none !important"
           boxShadow="none !important"
-          mt={2}
+          m="0 !important"
+          _hover={{
+            cursor: "pointer",
+            textDecoration: "underline",
+          }}
           size={textSize}
-          href="/basics/storage"
         >
-          <ListItem>
-            <ListIcon
-              as={
-                visitedStorage ? MdRadioButtonChecked : MdRadioButtonUnchecked
-              }
-            />
-            Storage
-          </ListItem>
-        </Link>
-        <Link
+          <Link passHref href="/basics/storage">
+            <Text m={0}>
+              <ListIcon
+                as={
+                  visitedStorage ? MdRadioButtonChecked : MdRadioButtonUnchecked
+                }
+              />
+              Storage
+            </Text>
+          </Link>
+        </ListItem>
+        <ListItem
           outline="none !important"
           boxShadow="none !important"
-          mt={2}
+          m="0 !important"
+          _hover={{
+            cursor: "pointer",
+            textDecoration: "underline",
+          }}
           size={textSize}
-          href="/basics/types"
         >
-          <ListItem>
-            <ListIcon
-              as={visitedTypes ? MdRadioButtonChecked : MdRadioButtonUnchecked}
-            />
-            Data Types
-          </ListItem>
-        </Link>
-        <Link
+          <Link passHref href="/basics/types">
+            <Text>
+              <ListIcon
+                as={
+                  visitedTypes ? MdRadioButtonChecked : MdRadioButtonUnchecked
+                }
+              />
+              Data Types
+            </Text>
+          </Link>
+        </ListItem>
+        <ListItem
           outline="none !important"
           boxShadow="none !important"
-          mt={2}
+          m="0 !important"
+          _hover={{
+            cursor: "pointer",
+            textDecoration: "underline",
+          }}
           size={textSize}
-          href="/basics/variables"
         >
-          <ListItem>
-            <ListIcon
-              as={
-                visitedVariables ? MdRadioButtonChecked : MdRadioButtonUnchecked
-              }
-            />
-            Variables
-          </ListItem>
-        </Link>
-        <Link
+          <Link passHref href="/basics/variables">
+            <Text>
+              <ListIcon
+                as={
+                  visitedVariables
+                    ? MdRadioButtonChecked
+                    : MdRadioButtonUnchecked
+                }
+              />
+              Variables
+            </Text>
+          </Link>
+        </ListItem>
+        <ListItem
           outline="none !important"
           boxShadow="none !important"
-          mt={2}
+          m="0 !important"
+          _hover={{
+            cursor: "pointer",
+            textDecoration: "underline",
+          }}
           size={textSize}
-          href="/basics/tuples"
         >
-          <ListItem>
-            <ListIcon
-              as={visitedTuples ? MdRadioButtonChecked : MdRadioButtonUnchecked}
-            />
-            Tuples
-          </ListItem>
-        </Link>
-        <Link
+          <Link passHref href="/basics/tuples">
+            <Text>
+              <ListIcon
+                as={
+                  visitedTuples ? MdRadioButtonChecked : MdRadioButtonUnchecked
+                }
+              />
+              Tuples
+            </Text>
+          </Link>
+        </ListItem>
+        <ListItem
           outline="none !important"
           boxShadow="none !important"
-          mt={2}
+          m="0 !important"
+          _hover={{
+            cursor: "pointer",
+            textDecoration: "underline",
+          }}
           size={textSize}
-          href="/basics/arrays"
         >
-          <ListItem>
-            <ListIcon
-              as={visitedArrays ? MdRadioButtonChecked : MdRadioButtonUnchecked}
-            />
-            Arrays
-          </ListItem>
-        </Link>
-        <Link
+          <Link passHref href="/basics/arrays">
+            <Text>
+              <ListIcon
+                as={
+                  visitedArrays ? MdRadioButtonChecked : MdRadioButtonUnchecked
+                }
+              />
+              Arrays
+            </Text>
+          </Link>
+        </ListItem>
+        <ListItem
           outline="none !important"
           boxShadow="none !important"
-          mt={2}
+          m="0 !important"
+          _hover={{
+            cursor: "pointer",
+            textDecoration: "underline",
+          }}
           size={textSize}
-          href="/basics/constructor"
         >
-          <ListItem>
-            <ListIcon
-              as={
-                visitedConstructor
-                  ? MdRadioButtonChecked
-                  : MdRadioButtonUnchecked
-              }
-            />
-            Constructor
-          </ListItem>
-        </Link>
-        <Link
+          <Link passHref href="/basics/constructor">
+            <Text>
+              <ListIcon
+                as={
+                  visitedConstructor
+                    ? MdRadioButtonChecked
+                    : MdRadioButtonUnchecked
+                }
+              />
+              Constructor
+            </Text>
+          </Link>
+        </ListItem>
+        <ListItem
           outline="none !important"
           boxShadow="none !important"
-          mt={2}
+          m="0 !important"
+          _hover={{
+            cursor: "pointer",
+            textDecoration: "underline",
+          }}
           size={textSize}
-          href="/basics/composition"
         >
-          <ListItem>
-            <ListIcon
-              as={
-                visitedComposition
-                  ? MdRadioButtonChecked
-                  : MdRadioButtonUnchecked
-              }
-            />
-            Composition
-          </ListItem>
-        </Link>
+          <Link passHref href="/basics/composition">
+            <Text>
+              <ListIcon
+                as={
+                  visitedComposition
+                    ? MdRadioButtonChecked
+                    : MdRadioButtonUnchecked
+                }
+              />
+              Composition
+            </Text>
+          </Link>
+        </ListItem>
       </List>
     </Box>
   );
